@@ -8,31 +8,32 @@ class BasePentagonal(BaseNeighbourhood):
 
 class PentagonalBottom(BaseNeighbourhood):
     def __init__(self, **kwargs):
+        self.field_occupy_flags = (1, 1, 1,
+                                   1, 1, 1,
+                                   1, 0, 1)
+        self.color = '#0000ff'
         super(PentagonalBottom, self).__init__(**kwargs)
-        self.field_occupy_flags = ((1, 1, 1),
-                                   (1, 1, 1),
-                                   (1, 0, 1))
 
 
 class PentagonalTop(BaseNeighbourhood):
     def __init__(self, **kwargs):
+        self.field_occupy_flags = (1, 0, 1,
+                                   1, 1, 1,
+                                   1, 1, 1)
         super(PentagonalTop, self).__init__(**kwargs)
-        self.field_occupy_flags = ((1, 0, 1),
-                                   (1, 1, 1),
-                                   (1, 1, 1))
 
 
 class PentagonalLeft(BaseNeighbourhood):
     def __init__(self, **kwargs):
+        self.field_occupy_flags = (1, 1, 1,
+                                   0, 1, 1,
+                                   1, 1, 1)
         super(PentagonalLeft, self).__init__(**kwargs)
-        self.field_occupy_flags = ((1, 1, 1),
-                                   (0, 1, 1),
-                                   (1, 1, 1))
 
 
 class PentagonalRight(BaseNeighbourhood):
     def __init__(self, **kwargs):
+        self.field_occupy_flags = (1, 1, 1,
+                                   1, 1, 0,
+                                   1, 1, 1)
         super(PentagonalRight, self).__init__(**kwargs)
-        self.field_occupy_flags = ((1, 1, 1),
-                                   (1, 1, 0),
-                                   (1, 1, 1))

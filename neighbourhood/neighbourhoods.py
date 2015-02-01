@@ -1,35 +1,52 @@
 # coding=utf-8
 import random
-from field.fields import FieldSet, NeighbourhoodField
+import sys
+from PySide.QtCore import QPoint
 
 
 class BaseNeighbourhood(object):
+    OCCUPIED_FIELDS = []
+
     def __init__(self, **kwargs):
-        self.field_neighbourhood_settings = kwargs.get('field_neighbourhood_settings')
-        self.fieldset = FieldSet()
-        x = kwargs.get('center_x', 0)
-        y = kwargs.get('center_y', 0)
-        field = NeighbourhoodField
-        self.field_occupy_flags = ()
-        self.parent = None
+        self.x = kwargs.get('x', 0)
+        self.y = kwargs.get('y', 0)
+        self.points = self.get_occupied_points()
+        self.color = kwargs.get('color', '#ff0000')
+        self.occupied_fields = []
 
-        self.fields = (
-            (field(x=x-1, y=y+1), field(x=x, y=y+1), field(x=x+1, y=y+1)),
-            (field(x=x-1, y=y),   field(x=x, y=y),   field(x=x+1, y=y)),
-            (field(x=x-1, y=y-1), field(x=x, y=y-1), field(x=x+1, y=y-1))
+
+    # def paintEvent(self, event, *args, **kwargs):
+    #     qp = QtGui.QPainter()
+    #     qp.begin(self)
+    #     if not self.occupied_fields:
+    #         self.draw_neighbourhood(qp)
+    #     qp.end()
+
+    # def draw_neighbourhood(self, qp):
+    #     qp.setPen(QtGui.QColor(168, 34, 3))
+    #     for field_row in self.fields:
+    #         for field in field_row:
+    #             if field.occupied:
+    #                 qp.drawPoint(field.x, field.y)
+    #                 self.occupied_fields.append(field)
+
+    def get_occupied_points(self):
+        occupied_points = []
+        points = (
+            QPoint(self.x - 1, self.y + 1), QPoint(self.x, self.y + 1), QPoint(self.x + 1, self.y + 1),
+            QPoint(self.x - 1, self.y), QPoint(self.x, self.y), QPoint(self.x + 1, self.y),
+            QPoint(self.x - 1, self.y - 1), QPoint(self.x, self.y - 1), QPoint(self.x + 1, self.y - 1),
         )
-        self.set_field_occupy_flags()
+        for point, flag in zip(points, self.field_occupy_flags):
+            if flag:
+                occupied_points.append(point)
+        return occupied_points
 
-    def set_field_occupy_flags(self):
-        for field_row, flag_row in zip(self.fields, self.field_occupy_flags):
-            for field, flag in zip(field_row, flag_row):
-                field.occupied = flag
-
-    def show_field_occupy_flags(self):
-        for field_row in self.fields:
-            for field in field_row:
-                print "%s" % field.occupied
-            print "\n"
+    def show_occupy_flags(self):
+        for i, flag in enumerate(self.field_occupy_flags, start=1):
+            sys.stdout.write('%s' % flag)
+            if i % 3 == 0:
+                print '\n'
 
     @staticmethod
     def choose_direction():
