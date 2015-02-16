@@ -17,9 +17,13 @@ class PentagonalBottom(BaseNeighbourhood):
 
 class PentagonalTop(BaseNeighbourhood):
     def __init__(self, **kwargs):
-        self.field_occupy_flags = (1, 0, 1,
-                                   1, 1, 1,
-                                   1, 1, 1)
+        self.field_occupy_flags = (
+            1, 1, 1, 1,
+            1, 0, 1, 1,
+            1, 0, 1, 1,
+            1, 1, 1, 1,
+        )
+
         super(PentagonalTop, self).__init__(**kwargs)
 
 
@@ -33,7 +37,13 @@ class PentagonalLeft(BaseNeighbourhood):
 
 class PentagonalRight(BaseNeighbourhood):
     def __init__(self, **kwargs):
-        self.field_occupy_flags = (1, 1, 1,
-                                   1, 1, 0,
-                                   1, 1, 1)
+        self.field_occupy_flags = (
+            1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1)
+
+
+            # 1, 1, 1, 1,
+            # 1, 0, 1, 1,
+            # 1, 0, 1, 1,
+            # 1, 1, 1, 1,
+        # )
         super(PentagonalRight, self).__init__(**kwargs)
